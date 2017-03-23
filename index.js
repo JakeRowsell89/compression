@@ -1,60 +1,10 @@
-const fs = require('fs')
-const Encode = require('./lib/encode')
-const Util = require('./lib/util')
-const Tree = require('./lib/tree')
-const Compress = require('./lib/compress')
-const Decompress = require('./lib/decompress')
-const Decode = require('./lib/decode')
-const Output = require('./lib/output')
-const Input = require('./lib/input')
-const Buffer = require('buffer').Buffer
-const EXTENSION = 'jzip'
-const ENCODING_IN = 'utf8'
-const ENCODING_OUT = 'utf16le'
+#! /usr/bin/env node
+
+const { readFromFile } = require('./lib/readfile')
 const fileTarget = process.argv[2]
 const mode = /jzip/i.test(fileTarget) ? 'decompress' : 'compress'
 
-const writeToFile = (file, data) => {
-  const ENCODING_WRITE = mode === 'compress' ? ENCODING_OUT : ENCODING_IN
-  const wstream = fs.createWriteStream(file, { encoding: ENCODING_WRITE })
-  wstream.write(data)
-  wstream.end()
-}
-
-const readCompressedFile = (err, data) => {
-  if (err) throw err
-  const { weightPlaces, inputFrequencies, compressedText} = Input.readCompressed(data)
-  // console.log(weightPlaces)
-  // console.log('---')
-  // console.log(inputFrequencies)
-  // console.log('---')
-  // console.log(compressedText)
-  // console.log('---')
-  const formattedInputFrequencies = Input.formatFrequencies(inputFrequencies, weightPlaces)
-  const newTree = Tree.constructTreeWithFrequencies(formattedInputFrequencies)
-  const decompressed = Decompress.decompressEncoded(compressedText)
-  // console.log(decompressed)
-  const decoded = Decode.decodeCharacterString(newTree, decompressed)
-  writeToFile(fileTarget.replace('.' + EXTENSION, ''), decoded)
-}
-
-const readInputFile = (err, data) => {
-  if (err) throw err
-
-  const charFrequencies = Encode.getCharacterFrequencies(data)
-  const frequencies = Util.sortFrequenciesByWeight(Util.convertFrequenciesToArray(charFrequencies))
-  const tree = Tree.constructTreeWithFrequencies(frequencies)
-  const encoded = Encode.encodeCharacterString(tree, data)
-  const compressed = Compress.compressEncoded(encoded)
-  const output = Output.format(frequencies, compressed, data.length)
-  writeToFile(fileTarget + '.' + EXTENSION, output)
-}
-
-if (fileTarget && mode === 'compress') {
-  fs.readFile(fileTarget, ENCODING_IN, readInputFile)
-} else if (fileTarget && mode === 'decompress') {
-  fs.readFile(fileTarget, ENCODING_OUT, readCompressedFile)
-}
+readFromFile(fileTarget, mode)
 
 // console.log('Compressed text matches')
 // console.log(compressed === compressedText)

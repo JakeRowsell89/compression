@@ -1,0 +1,21 @@
+{
+  "name": "j-zip",
+  "version": "1.0.4",
+  "description": "Compression tool using node",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakeRowsell89/compression.git"
+  },
+  "bin": {
+    "jzip": "index.js"
+  },
+  "author": "Jake Rowsell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JakeRowsell89/compression/issues"
+  },
+  "homepage": "https://github.com/JakeRowsell89/compression#readme"
+}

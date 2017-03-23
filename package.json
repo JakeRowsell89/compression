@@ -1,7 +1,10 @@
 {
   "name": "j-zip",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Compression tool using node",
+  "engines": {
+    "node" : ">=6.4"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -3,10 +3,13 @@
   "version": "1.0.5",
   "description": "Compression tool using node",
   "engines": {
-    "node" : ">=6.4.0"
+    "node": ">=6.4.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "lint": "standard",
+    "dev": "chokidar '**/*.js' -c 'standard && jest'",
+    "validate": "npm ls"
   },
   "repository": {
     "type": "git",
@@ -20,5 +23,17 @@
   "bugs": {
     "url": "https://github.com/JakeRowsell89/compression/issues"
   },
-  "homepage": "https://github.com/JakeRowsell89/compression#readme"
+  "homepage": "https://github.com/JakeRowsell89/compression#readme",
+  "pre-commit": ["test", "lint"],
+  "devDependencies": {
+    "chokidar-cli": "^1.2.0",
+    "jest": "^19.0.2",
+    "precommit-hook": "^3.0.0",
+    "standard": "^9.0.2"
+  },
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ]
 }

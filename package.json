@@ -1,6 +1,6 @@
 {
   "name": "j-zip",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Compression tool using node",
   "engines": {
     "node": ">=6.4.0"
@@ -24,11 +24,9 @@
     "url": "https://github.com/JakeRowsell89/compression/issues"
   },
   "homepage": "https://github.com/JakeRowsell89/compression#readme",
-  "pre-commit": ["test", "lint"],
   "devDependencies": {
     "chokidar-cli": "^1.2.0",
     "jest": "^19.0.2",
-    "precommit-hook": "^3.0.0",
     "standard": "^9.0.2"
   },
   "standard": {
@@ -36,10 +34,5 @@
       "expect",
       "it"
     ]
-  },
-  "pre-commit": [
-    "lint",
-    "validate",
-    "test"
-  ]
+  }
 }
